@@ -1,0 +1,180 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 10px;
+}
+
+.welcome-message {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.recipe-button,
+.about-us-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.about-us-button {
+  background-color: #2196f3;
+  margin-top: 5px;
+  
+}
+
+.show-recipes-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  width: 50vw;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.recipe-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.recipe-card h2 {
+  margin-top: 0;
+}
+
+.recipe-card h3 {
+  margin-bottom: 10px;
+}
+
+.recipe-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recipe-card li {
+  margin-bottom: 5px;
+}
+
+.submit-recipe-container {
+  min-width: 500px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 93%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+textarea {
+  height: 150px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.form-group label,
+input[type="text"],
+textarea {
+  margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.about-us-container, .famous-chef-websites {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  
+}
+
+.about-us-container {
+  text-align: center;
+}
+
+a:link { 
+  text-decoration: none; 
+} 
+a:visited { 
+  text-decoration: none; 
+} 
+a:hover { 
+  text-decoration: none; 
+} 
+a:active { 
+  text-decoration: none; 
+}
+
+.image-preview {
+  margin-top: 10px;
+}
+
+.image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.recipe-card img {
+  max-width: 600px;
+  max-height: 400px;
+}

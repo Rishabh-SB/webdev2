@@ -14,17 +14,12 @@ const SubmitRecipe = () => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("chefName", chefName);
-    if (typeof ingredients === "string") {
-      ingredients
-        .split(",")
-        .map((ingredient) => ingredient.trim())
-        .forEach((ingredient, index) => {
-          formData.append(`ingredients[${index}]`, ingredient);
-        });
-    } else {
-      console.error("Ingredients should be a string.");
-    }
-
+    ingredients
+      .split(",")
+      .map((ingredient) => ingredient.trim())
+      .forEach((ingredient, index) => {
+        formData.append(`ingredients[${index}]`, ingredient);
+      });
     formData.append("instructions", instructions);
     formData.append("image", image);
 
@@ -35,7 +30,9 @@ const SubmitRecipe = () => {
       });
 
       if (response.ok) {
-        console.log("Recipe submitted successfully!");
+        // Show success dialog
+        alert("Recipe submitted successfully!");
+        // Optionally reset form fields after successful submission
         setName("");
         setChefName("");
         setIngredients("");
@@ -43,10 +40,13 @@ const SubmitRecipe = () => {
         setImage(null);
         setPreviewImage(null);
       } else {
-        console.error("Error submitting recipe:", response.statusText);
+        // Show error dialog
+        alert("Error submitting recipe: " + response.statusText);
       }
     } catch (error) {
       console.error("Error submitting recipe:", error);
+      // Show error dialog in case of network or other errors
+      alert("An error occurred while submitting the recipe.");
     }
   };
 

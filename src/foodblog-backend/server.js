@@ -27,17 +27,29 @@ app.post("/api/recipes", upload.single("image"), (req, res) => {
   const { name, chefName, ingredients, instructions } = req.body;
   const image = req.file ? req.file.filename : null;
 
+  // Log received data
+  console.log("Received data:", req.body);
+  console.log("Received file:", req.file);
+
   // Check if ingredients is a string before calling split()
   if (typeof ingredients !== "string") {
+    console.error("Ingredients is not a valid string:", ingredients);
     return res
       .status(400)
       .json({ error: "Ingredients must be a comma-separated string." });
   }
 
   if (!name || !chefName || !ingredients || !instructions || !image) {
+    const missingFields = [];
+    if (!name) missingFields.push("name");
+    if (!chefName) missingFields.push("chefName");
+    if (!ingredients) missingFields.push("ingredients");
+    if (!instructions) missingFields.push("instructions");
+    if (!image) missingFields.push("image");
+    console.error("Missing fields:", missingFields);
     return res
       .status(400)
-      .json({ error: "All fields are required, including an image." });
+      .json({ error: `Missing fields: ${missingFields.join(", ")}` });
   }
 
   // Store the recipe data (in-memory for now)

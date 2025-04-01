@@ -11,15 +11,16 @@ const SubmitRecipe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure ingredients is a comma-separated string
+    const ingredientsString = ingredients
+      .split(",")
+      .map((ingredient) => ingredient.trim())
+      .join(",");
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("chefName", chefName);
-    ingredients
-      .split(",")
-      .map((ingredient) => ingredient.trim())
-      .forEach((ingredient, index) => {
-        formData.append(`ingredients[${index}]`, ingredient);
-      });
+    formData.append("ingredients", ingredientsString); // Send as a comma-separated string
     formData.append("instructions", instructions);
     formData.append("image", image);
 
@@ -30,9 +31,7 @@ const SubmitRecipe = () => {
       });
 
       if (response.ok) {
-        // Show success dialog
-        alert("Recipe submitted successfully!");
-        // Optionally reset form fields after successful submission
+        console.log("Recipe submitted successfully!");
         setName("");
         setChefName("");
         setIngredients("");
@@ -40,13 +39,10 @@ const SubmitRecipe = () => {
         setImage(null);
         setPreviewImage(null);
       } else {
-        // Show error dialog
-        alert("Error submitting recipe: " + response.statusText);
+        console.error("Error submitting recipe:", response.statusText);
       }
     } catch (error) {
       console.error("Error submitting recipe:", error);
-      // Show error dialog in case of network or other errors
-      alert("An error occurred while submitting the recipe.");
     }
   };
 

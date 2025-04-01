@@ -18,45 +18,40 @@ const recipesFilePath = path.join(__dirname, "recipes.json");
 
 // POST route to submit a recipe
 app.post("/api/recipes", upload.single("image"), (req, res) => {
-  const { name, chefName, ingredients, instructions } = req.body;
-  const imagePath = req.file ? req.file.path : null;
-
-  // Create a new recipe object
   const newRecipe = {
-    name,
-    chefName,
-    ingredients: ingredients.split(",").map((ingredient) => ingredient.trim()),
-    instructions,
-    imagePath,
+    name: req.body.name,
+    chefName: req.body.chefName,
+    ingredients: req.body.ingredients
+      .split(",")
+      .map((ingredient) => ingredient.trim()),
+    instructions: req.body.instructions,
+    imagePath: req.file.path,
   };
 
-  // Read the existing recipes from the file
-  fs.readFile(recipesFilePath, "utf8", (err, data) => {
+  // Read the existing recipes
+  fs.readFile(recipesPath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).json({ message: "Error reading recipes file" });
+      return res.status(500).json({ error: "Error reading recipes file" });
     }
 
-    // Parse the existing recipes
-    let recipes = JSON.parse(data);
+    let recipes = [];
+    try {
+      recipes = data ? JSON.parse(data) : [];
+    } catch (err) {
+      console.error("Error parsing recipes.json:", err);
+    }
 
-    // Add the new recipe to the array
+    // Add the new recipe to the recipes array
     recipes.push(newRecipe);
 
-    // Write the updated array back to the JSON file
-    fs.writeFile(
-      recipesFilePath,
-      JSON.stringify(recipes, null, 2),
-      "utf8",
-      (err) => {
-        if (err) {
-          return res.status(500).json({ message: "Error saving recipe" });
-        }
-        res.status(201).json({
-          message: "Recipe submitted successfully!",
-          recipe: newRecipe,
-        });
+    // Write the updated recipes back to the file
+    fs.writeFile(recipesPath, JSON.stringify(recipes, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Error saving recipe" });
       }
-    );
+
+      res.status(200).json({ message: "Recipe submitted successfully" });
+    });
   });
 });
 

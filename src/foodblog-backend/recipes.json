@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Recipe 1",
+    "chefName": "Chef 1",
+    "ingredients": ["ingredient 1", "ingredient 2"],
+    "instructions": "Instructions for recipe 1",
+    "imagePath": "path/to/image1.jpg"
+  },
+  {
+    "name": "Recipe 2",
+    "chefName": "Chef 2",
+    "ingredients": ["ingredient A", "ingredient B"],
+    "instructions": "Instructions for recipe 2",
+    "imagePath": "path/to/image2.jpg"
+  }
+]

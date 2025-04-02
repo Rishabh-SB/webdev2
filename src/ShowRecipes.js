@@ -1,39 +1,30 @@
 import React, { useState, useEffect } from "react";
 
-const defaultRecipes = [
-  {
-    name: "Spaghetti Carbonara",
-    chefName: "Chef Giovanni",
-    ingredients: [
-      "Spaghetti",
-      "Eggs",
-      "Parmesan Cheese",
-      "Pancetta",
-      "Black Pepper",
-    ],
-    instructions:
-      "Cook spaghetti. In a bowl, mix eggs, Parmesan, and black pepper. Cook pancetta until crispy, then mix everything together quickly before serving.",
-    image: "/spaghetti_carbonara.jpeg",
-  },
-  {
-    name: "Classic Pancakes",
-    chefName: "Chef Susan",
-    ingredients: ["Flour", "Milk", "Eggs", "Baking Powder", "Sugar", "Butter"],
-    instructions:
-      "Mix dry ingredients. Add milk, eggs, and melted butter. Cook pancakes on a hot griddle until golden brown on both sides. Serve with syrup.",
-    image: "/classic_pancakes.jpeg",
-  },
-];
-
 const ShowRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const storedRecipes = JSON.parse(localStorage.getItem("recipes"));
-
-    if (!storedRecipes || storedRecipes.length === 0) {
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+    if (storedRecipes.length === 0) {
+      const defaultRecipes = [
+        {
+          name: "Spaghetti Carbonara",
+          chefName: "Chef Luigi",
+          ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Pepper"],
+          instructions:
+            "Boil spaghetti. Cook pancetta. Mix eggs and cheese. Combine all together.",
+          imagePath: `${process.env.PUBLIC_URL}/spaggheti_carbonara.jpeg`,
+        },
+        {
+          name: "Classic Pancakes",
+          chefName: "Chef Emma",
+          ingredients: ["Flour", "Milk", "Eggs", "Sugar", "Baking Powder"],
+          instructions: "Mix ingredients. Cook on skillet. Serve warm.",
+          imagePath: `${process.env.PUBLIC_URL}/classic_pancakes.jpeg`,
+        },
+      ];
       localStorage.setItem("recipes", JSON.stringify(defaultRecipes));
       setRecipes(defaultRecipes);
       setFilteredRecipes(defaultRecipes);
@@ -64,35 +55,22 @@ const ShowRecipes = () => {
         placeholder="Search by recipe name or chef name"
         value={searchQuery}
         onChange={handleSearch}
-        className="search-bar"
       />
-      <div className="recipes-grid">
-        {filteredRecipes.length === 0 ? (
-          <p>No recipes found.</p>
-        ) : (
-          filteredRecipes.map((recipe, index) => (
-            <div key={index} className="recipe-card">
-              {recipe.image && (
-                <img
-                  src={recipe.image}
-                  alt={recipe.name}
-                  className="recipe-image"
-                />
-              )}
-              <h2>{recipe.name}</h2>
-              <p className="chef-name">Chef: {recipe.chefName}</p>
-              <h3>Ingredients:</h3>
-              <ul>
-                {recipe.ingredients.map((ingredient, idx) => (
-                  <li key={idx}>{ingredient}</li>
-                ))}
-              </ul>
-              <h3>Recipe:</h3>
-              <p>{recipe.instructions}</p>
-            </div>
-          ))
-        )}
-      </div>
+      {filteredRecipes.map((recipe, index) => (
+        <div key={index} className="recipe-card">
+          <img src={recipe.imagePath} alt={recipe.name} />
+          <h2>{recipe.name}</h2>
+          <p>Chef: {recipe.chefName}</p>
+          <h3>Ingredients:</h3>
+          <ul>
+            {recipe.ingredients.map((ingredient, idx) => (
+              <li key={idx}>{ingredient}</li>
+            ))}
+          </ul>
+          <h3>Recipe:</h3>
+          <p>{recipe.instructions}</p>
+        </div>
+      ))}
     </div>
   );
 };

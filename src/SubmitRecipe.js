@@ -11,6 +11,15 @@ const SubmitRecipe = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Log data to debug
+    console.log("Submitting Recipe:", {
+      name,
+      chefName,
+      ingredients,
+      instructions,
+      image,
+    });
+
     const newRecipe = {
       name,
       chefName,
@@ -18,38 +27,31 @@ const SubmitRecipe = () => {
         .split(",")
         .map((ingredient) => ingredient.trim()),
       instructions,
-      image: previewImage || "", // Store image preview as a base64 string
+      imagePath: image ? image.name : "",
     };
 
-    // Retrieve existing recipes from localStorage
-    const existingRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
-    existingRecipes.push(newRecipe);
+    // Get recipes from localStorage, or initialize an empty array
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
-    // Store updated recipes list in localStorage
-    localStorage.setItem("recipes", JSON.stringify(existingRecipes));
+    // Add the new recipe to the array
+    storedRecipes.push(newRecipe);
 
-    // Reset form fields
+    // Save updated recipes to localStorage
+    localStorage.setItem("recipes", JSON.stringify(storedRecipes));
+
+    // Clear the form fields after submission
     setName("");
     setChefName("");
     setIngredients("");
     setInstructions("");
     setImage(null);
     setPreviewImage(null);
-
-    alert("Recipe submitted successfully!");
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setImage(file);
-    }
+    setImage(file);
+    setPreviewImage(URL.createObjectURL(file));
   };
 
   return (
@@ -97,7 +99,7 @@ const SubmitRecipe = () => {
         </div>
         <div className="form-group">
           <label htmlFor="image">Recipe Image:</label>
-          <input type="file" id="image" onChange={handleImageChange} />
+          <input type="file" id="image" onChange={handleImageChange} required />
           {previewImage && (
             <div className="image-preview">
               <img src={previewImage} alt="Recipe Preview" />

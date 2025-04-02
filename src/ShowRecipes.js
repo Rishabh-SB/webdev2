@@ -13,7 +13,7 @@ const defaultRecipes = [
     ],
     instructions:
       "Cook spaghetti. In a bowl, mix eggs, Parmesan, and black pepper. Cook pancetta until crispy, then mix everything together quickly before serving.",
-    image: "https://www.simplyrecipes.com/thmb/spaghetti-carbonara.jpg",
+    image: "/spaghetti_carbonara.jpeg",
   },
   {
     name: "Classic Pancakes",
@@ -21,7 +21,7 @@ const defaultRecipes = [
     ingredients: ["Flour", "Milk", "Eggs", "Baking Powder", "Sugar", "Butter"],
     instructions:
       "Mix dry ingredients. Add milk, eggs, and melted butter. Cook pancakes on a hot griddle until golden brown on both sides. Serve with syrup.",
-    image: "https://www.simplyrecipes.com/thmb/classic-pancakes.jpg",
+    image: "/classic_pancakes.jpeg",
   },
 ];
 
@@ -64,26 +64,35 @@ const ShowRecipes = () => {
         placeholder="Search by recipe name or chef name"
         value={searchQuery}
         onChange={handleSearch}
+        className="search-bar"
       />
-      {filteredRecipes.length === 0 ? (
-        <p>No recipes found.</p>
-      ) : (
-        filteredRecipes.map((recipe, index) => (
-          <div key={index} className="recipe-card">
-            {recipe.image && <img src={recipe.image} alt={recipe.name} />}
-            <h2>{recipe.name}</h2>
-            <p>Chef: {recipe.chefName}</p>
-            <h3>Ingredients:</h3>
-            <ul>
-              {recipe.ingredients.map((ingredient, idx) => (
-                <li key={idx}>{ingredient}</li>
-              ))}
-            </ul>
-            <h3>Recipe:</h3>
-            <p>{recipe.instructions}</p>
-          </div>
-        ))
-      )}
+      <div className="recipes-grid">
+        {filteredRecipes.length === 0 ? (
+          <p>No recipes found.</p>
+        ) : (
+          filteredRecipes.map((recipe, index) => (
+            <div key={index} className="recipe-card">
+              {recipe.image && (
+                <img
+                  src={recipe.image}
+                  alt={recipe.name}
+                  className="recipe-image"
+                />
+              )}
+              <h2>{recipe.name}</h2>
+              <p className="chef-name">Chef: {recipe.chefName}</p>
+              <h3>Ingredients:</h3>
+              <ul>
+                {recipe.ingredients.map((ingredient, idx) => (
+                  <li key={idx}>{ingredient}</li>
+                ))}
+              </ul>
+              <h3>Recipe:</h3>
+              <p>{recipe.instructions}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

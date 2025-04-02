@@ -41,52 +41,49 @@ body {
 .about-us-button {
   background-color: #2196f3;
   margin-top: 5px;
-  
 }
 
-.show-recipes-container {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  width: 50vw;
-  min-width: 800px;
+/* Container Adjustments for Responsiveness */
+.show-recipes-container,
+.submit-recipe-container,
+.about-us-container,
+.famous-chef-websites {
+  width: 90%;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }
 
 .recipe-card {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 16px;
   margin-bottom: 20px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.recipe-card h2 {
-  margin-top: 0;
+/* Responsive Grid for Recipes */
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
 }
 
-.recipe-card h3 {
-  margin-bottom: 10px;
-}
-
-.recipe-card ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.recipe-card li {
-  margin-bottom: 5px;
-}
-
-.submit-recipe-container {
-  min-width: 500px;
-  margin: 0 auto;
-  padding: 25px;
-  background-color: rgba(255, 255, 255, 0.8);
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Form Styles */
 .form-group {
   margin-bottom: 20px;
 }
@@ -99,7 +96,7 @@ label {
 
 input[type="text"],
 textarea {
-  width: 93%;
+  width: 100%;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -124,47 +121,22 @@ button[type="submit"]:hover {
 
 h1 {
   margin-bottom: 20px;
-}
-
-.form-group label,
-input[type="text"],
-textarea {
-  margin-bottom: 10px;
-}
-
-input[type="text"]:focus,
-textarea:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-.about-us-container, .famous-chef-websites {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  
-}
-
-.about-us-container {
   text-align: center;
+  font-size: 1.8rem;
 }
 
-a:link { 
-  text-decoration: none; 
-} 
-a:visited { 
-  text-decoration: none; 
-} 
-a:hover { 
-  text-decoration: none; 
-} 
-a:active { 
-  text-decoration: none; 
+/* Search Bar */
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
+/* Image Preview */
 .image-preview {
   margin-top: 10px;
 }
@@ -174,7 +146,22 @@ a:active {
   max-height: 200px;
 }
 
-.recipe-card img {
-  max-width: 600px;
-  max-height: 400px;
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .recipe-card {
+    padding: 12px;
+  }
+
+  .recipe-card img {
+    max-height: 180px;
+  }
+
+  .search-bar {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }

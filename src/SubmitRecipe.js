@@ -27,7 +27,7 @@ const SubmitRecipe = () => {
         .split(",")
         .map((ingredient) => ingredient.trim()),
       instructions,
-      imagePath: image ? image.name : "",
+      imagePath: image ? URL.createObjectURL(image) : "", // Store the image as a blob URL
     };
 
     // Get recipes from localStorage, or initialize an empty array

@@ -15,7 +15,7 @@ const ShowRecipes = () => {
           ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Pepper"],
           instructions:
             "Boil spaghetti. Cook pancetta. Mix eggs and cheese. Combine all together.",
-          imagePath: `${process.env.PUBLIC_URL}/spaggheti_carbonara.jpeg`,
+          imagePath: `${process.env.PUBLIC_URL}/spaghetti_carbonara.jpeg`,
         },
         {
           name: "Classic Pancakes",

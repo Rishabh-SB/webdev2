@@ -97,7 +97,9 @@ label {
 input[type="text"],
 textarea {
   width: 100%;
-  padding: 15px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }

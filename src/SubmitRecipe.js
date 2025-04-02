@@ -8,48 +8,48 @@ const SubmitRecipe = () => {
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Ensure ingredients is a comma-separated string
-    const ingredientsString = ingredients
-      .split(",")
-      .map((ingredient) => ingredient.trim())
-      .join(",");
+    const newRecipe = {
+      name,
+      chefName,
+      ingredients: ingredients
+        .split(",")
+        .map((ingredient) => ingredient.trim()),
+      instructions,
+      image: previewImage || "", // Store image preview as a base64 string
+    };
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("chefName", chefName);
-    formData.append("ingredients", ingredientsString); // Send as a comma-separated string
-    formData.append("instructions", instructions);
-    formData.append("image", image);
+    // Retrieve existing recipes from localStorage
+    const existingRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+    existingRecipes.push(newRecipe);
 
-    try {
-      const response = await fetch("http://localhost:3000/api/recipes", {
-        method: "POST",
-        body: formData,
-      });
+    // Store updated recipes list in localStorage
+    localStorage.setItem("recipes", JSON.stringify(existingRecipes));
 
-      if (response.ok) {
-        console.log("Recipe submitted successfully!");
-        setName("");
-        setChefName("");
-        setIngredients("");
-        setInstructions("");
-        setImage(null);
-        setPreviewImage(null);
-      } else {
-        console.error("Error submitting recipe:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting recipe:", error);
-    }
+    // Reset form fields
+    setName("");
+    setChefName("");
+    setIngredients("");
+    setInstructions("");
+    setImage(null);
+    setPreviewImage(null);
+
+    alert("Recipe submitted successfully!");
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImage(file);
-    setPreviewImage(URL.createObjectURL(file));
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setImage(file);
+    }
   };
 
   return (
@@ -97,7 +97,7 @@ const SubmitRecipe = () => {
         </div>
         <div className="form-group">
           <label htmlFor="image">Recipe Image:</label>
-          <input type="file" id="image" onChange={handleImageChange} required />
+          <input type="file" id="image" onChange={handleImageChange} />
           {previewImage && (
             <div className="image-preview">
               <img src={previewImage} alt="Recipe Preview" />
